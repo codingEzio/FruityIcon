@@ -9,6 +9,8 @@
 3.10+；`python3 scripts/generate-examples.py`
 可重建示例。替换图片须自备权利并符合 RGBA PNG 网格格式。
 
+本地 demo 只提供启动时快照中的必要公开文件。
+
 程序和基本示例采用 MIT，文档图标另采用 CC BY
 4.0。参见[许可范围](LICENSE-SCOPE.json)、[依赖](DEPENDENCIES.md)和[示例来源](examples/provenance.json)。
 

@@ -11,6 +11,8 @@ PNG 스프라이트 경계를 측정하고 CSS를 생성합니다. 도형 예제
 예제를 다시 생성할 수 있습니다. 교체 이미지의 권리와 RGBA PNG 격자 형식은
 사용자가 확인해야 합니다.
 
+로컬 데모는 시작 시 읽은 필요한 공개 파일만 제공합니다.
+
 코드와 기본 예제는 MIT, 문서 아이콘은 CC BY 4.0입니다.
 [라이선스](LICENSE-SCOPE.json) · [의존성](DEPENDENCIES.md) ·
 [예제 출처](examples/provenance.json).

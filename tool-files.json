@@ -25,11 +25,13 @@
     "examples/actions-dark.png",
     "examples/actions-light.png",
     "examples/provenance.json",
+    "scripts/demo-server.py",
     "scripts/generate-examples.py",
     "scripts/install-deps.sh",
     "scripts/measure-icons.py",
     "scripts/public-check.ts",
     "sprite-sources.json",
+    "tests/demo_server_test.py",
     "tests/png_measure_test.py",
     "tool-files.json"
   ]

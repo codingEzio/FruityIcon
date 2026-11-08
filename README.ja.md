@@ -10,6 +10,8 @@ PNG スプライトの境界を測り CSS を生成します。6
 でサンプルを再生成できます。差し替え画像の権利と RGBA PNG
 グリッド形式は利用者が確認してください。
 
+ローカルデモは起動時に取得した必要な公開ファイルだけを配信します。
+
 コードと図形は MIT、文書アイコンは CC BY 4.0
 です。[ライセンス](LICENSE-SCOPE.json)・[依存](DEPENDENCIES.md)・[出典](examples/provenance.json)。
 

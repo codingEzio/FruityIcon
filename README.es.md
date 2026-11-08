@@ -12,6 +12,8 @@ necesitan Deno 2.8+ y Python 3.10+. `python3 scripts/generate-examples.py`
 regenera los ejemplos. Las imágenes de reemplazo requieren derechos propios y el
 formato de cuadrícula PNG RGBA.
 
+La demo local solo sirve los archivos públicos necesarios leídos al iniciar.
+
 El código y los ejemplos básicos usan MIT; el icono de documentación usa CC BY
 4.0. Consulte [licencia](LICENSE-SCOPE.json), [dependencias](DEPENDENCIES.md) y
 [origen](examples/provenance.json).

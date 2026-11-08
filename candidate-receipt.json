@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "scope": "tool-only-local-candidate; no-original-artwork",
-  "seal": "d9d9afd6f958e030734d2929b0195d94cd6e28aab023344ce813511c11cff166",
+  "seal": "7e60ca9bb59f1c1eb80509223d8bcb5a7ca83e0ada412ed94d30305c08fc234e",
   "files": [
     {
       "path": ".gitignore",
@@ -41,43 +41,43 @@
     {
       "path": "README.es.md",
       "sourcePath": "README.es.md",
-      "sha256": "0690f56666782a6bb37572e196d373ea119844b4571e7c231345d2e3ef063bd1",
-      "bytes": 1337,
+      "sha256": "7859dad5aef63d9065316e510c921448970a5ff15fc6afed800012c6f4217a87",
+      "bytes": 1417,
       "executable": false
     },
     {
       "path": "README.ja.md",
       "sourcePath": "README.ja.md",
-      "sha256": "34ad9a1a6f801e37c40c366def960d6c4940ef2f9515a270c4762cf44e5357a3",
-      "bytes": 1549,
+      "sha256": "33570777669db5976610b3ce04fb2661e5c467fc9458e495a2c8de2dac3ad95a",
+      "bytes": 1650,
       "executable": false
     },
     {
       "path": "README.ko.md",
       "sourcePath": "README.ko.md",
-      "sha256": "2407f878120ccaec025c7e455124fe7a44dc6c7895da751ac42a7c4e94ebf725",
-      "bytes": 1491,
+      "sha256": "e4dead9149145ed486b058c83f5fdde2224b3ed1371a58610d49be7d3f1cd717",
+      "bytes": 1571,
       "executable": false
     },
     {
       "path": "README.md",
       "sourcePath": "README.md",
-      "sha256": "7e6d0296bdc626665764a3a5e945468cc2913c94c42a50eb488687f210409be0",
-      "bytes": 1472,
+      "sha256": "4fcea9b598fcb1baf362ebc8f33c1375a1ebcd0726ea1226873d825034e118e1",
+      "bytes": 1551,
       "executable": false
     },
     {
       "path": "README.zh-Hans.md",
       "sourcePath": "README.zh-Hans.md",
-      "sha256": "b60c6edccb5b2f37f1dd0590ecf9f8b539a9326c466670bce1ab3f59523c1196",
-      "bytes": 1157,
+      "sha256": "5f0466239306bec32c75fe646b540af2dd689c2ab0bede865ce207a33542c1db",
+      "bytes": 1222,
       "executable": false
     },
     {
       "path": "README.zh-Hant.md",
       "sourcePath": "README.zh-Hant.md",
-      "sha256": "539834fb40c4d45600368687980101a64c0fec18abd34dd8701249c5c4846edc",
-      "bytes": 1149,
+      "sha256": "ca0aa756a42dbe65892184e4e732b851aca28e2be116df34c0d89b84048821df",
+      "bytes": 1214,
       "executable": false
     },
     {
@@ -118,8 +118,8 @@
     {
       "path": "deno.json",
       "sourcePath": "deno.json",
-      "sha256": "22fc21e7899cbb26387fdedccfdbbc5deed87cd32bfcf879196edfd5ebae51d1",
-      "bytes": 865,
+      "sha256": "17bfa5be4e1ce7604705e354b61f1904bacd63d5b34344dc066177d161c860dd",
+      "bytes": 853,
       "executable": false
     },
     {
@@ -148,6 +148,13 @@
       "sourcePath": "examples/provenance.json",
       "sha256": "9ae876ca3f62243edf4b59532c3d9a46dc1923b066a8619e3d5546603631309a",
       "bytes": 570,
+      "executable": false
+    },
+    {
+      "path": "scripts/demo-server.py",
+      "sourcePath": "scripts/demo-server.py",
+      "sha256": "43dcc849db665e13b7d72f45d256987da583000f18a898198775bbbcf642cac2",
+      "bytes": 3924,
       "executable": false
     },
     {
@@ -186,6 +193,13 @@
       "executable": false
     },
     {
+      "path": "tests/demo_server_test.py",
+      "sourcePath": "tests/demo_server_test.py",
+      "sha256": "7f52afb67e756fcff7bcd5623f73e5edca61761b9956775cd8687be7d3681464",
+      "bytes": 3248,
+      "executable": false
+    },
+    {
       "path": "tests/png_measure_test.py",
       "sourcePath": "tests/png_measure_test.py",
       "sha256": "948e2fd7aef4bc97ed6b5e2c77e3c7d8c6c5b3771dd8b4e7d79daa9adf7b4d4f",
@@ -195,8 +209,8 @@
     {
       "path": "tool-files.json",
       "sourcePath": "tool-files.json",
-      "sha256": "4898bdca97b5439c8ece5b4810e6f6f90f99e679e8f71ce5d8644094fb80a0de",
-      "bytes": 935,
+      "sha256": "8c543813e31b3f999bb4889d528d40ccb542d70fa198d0bbf90cce302993c964",
+      "bytes": 998,
       "executable": false
     }
   ],

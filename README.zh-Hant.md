@@ -9,6 +9,8 @@
 3.10+；`python3 scripts/generate-examples.py`
 可重建範例。替換圖片須自備權利並符合 RGBA PNG 網格格式。
 
+本機 demo 只提供啟動時快照中的必要公開檔案。
+
 程式與基本範例採 MIT，文件圖示另採 CC BY 4.0。見
 [授權範圍](LICENSE-SCOPE.json)、[依賴](DEPENDENCIES.md)與[範例來源](examples/provenance.json)。
 

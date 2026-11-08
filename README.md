@@ -14,6 +14,8 @@ Ctrl-C. Deno 2.8+ and Python 3.10+ are required.
 replacing images, supply your own rights and the documented RGBA PNG grid
 format.
 
+The local demo serves only its required public files from a startup snapshot.
+
 The code and basic examples use MIT; the documentation icon has its own CC BY
 4.0 grant. See [LICENSE-SCOPE.json](LICENSE-SCOPE.json),
 [DEPENDENCIES.md](DEPENDENCIES.md) and
