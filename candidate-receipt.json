@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "scope": "tool-only-local-candidate; no-original-artwork",
-  "seal": "06877a5bc183426faff8bacac9841f6b43daee167889726b8bae548bf0722bb4",
+  "seal": "e5dc51b8f6fdf1d44d437efbbc315c2ca424870fc0816a57aa16e22c70ca464e",
   "files": [
     {
       "path": ".gitignore",
@@ -41,8 +41,8 @@
     {
       "path": "OVERLAY-CONTRACT.md",
       "sourcePath": "OVERLAY-CONTRACT.md",
-      "sha256": "87d150aaae2e8bfcf9290094c0ac35d68deaa932efd7fa7c4349dc15ed0e8e39",
-      "bytes": 2241,
+      "sha256": "09f857e20e284fc0b310bd88598f95decfe5d144ddabeab0af67df7a817bd705",
+      "bytes": 3137,
       "executable": false
     },
     {
@@ -160,22 +160,22 @@
     {
       "path": "gallery/gallery.css",
       "sourcePath": "gallery/gallery.css",
-      "sha256": "ed07865896bf4bfe91dcc2a57842fbd72d80c1455b40fb2427fc7ad3314faaac",
-      "bytes": 2170,
+      "sha256": "11650a0fe0e0ab438fd9ad4d7ad8093a1ed8417badc08d5dc31adda38c169262",
+      "bytes": 2460,
       "executable": false
     },
     {
       "path": "gallery/gallery.js",
       "sourcePath": "gallery/gallery.js",
-      "sha256": "f742f5fed9709aea818b49258319fd2f2edec4bd71faa5f7c9bda6961f167419",
-      "bytes": 11658,
+      "sha256": "e74df26ed8049cfaa410c3902dcbb5d05dfaa21ab117232c29225e40a9aa8fde",
+      "bytes": 17432,
       "executable": false
     },
     {
       "path": "gallery/index.html",
       "sourcePath": "gallery/index.html",
-      "sha256": "fbf0e3debce467849b0b903f9bbaf41fef472b262ad0b071c6765d26b97f70da",
-      "bytes": 2670,
+      "sha256": "b394548365ebdba3a7f2c64a415e60a5cdd201b518de51e0cd182179b2b2c8e7",
+      "bytes": 5635,
       "executable": false
     },
     {
@@ -188,8 +188,8 @@
     {
       "path": "scripts/gallery-server.py",
       "sourcePath": "scripts/gallery-server.py",
-      "sha256": "8ae7d4b0829135f49b1f64133d405e0f7ec0f2dd22e4adeeeff93ef076954ca0",
-      "bytes": 3771,
+      "sha256": "5609ede245253f88bd4fe55145d2fb15db5bbed9077425433da103e0a92f3aab",
+      "bytes": 2291,
       "executable": false
     },
     {
@@ -223,8 +223,8 @@
     {
       "path": "scripts/validate-overlay.py",
       "sourcePath": "scripts/validate-overlay.py",
-      "sha256": "d9882d02dd6c760fca385252b10f74310553901b4320cdacf5d13ecd89e275c3",
-      "bytes": 4820,
+      "sha256": "28f0c2ffcef99c15d1fe023260f35bf7afd51f51026e46e8abffbb400b5e8c81",
+      "bytes": 6292,
       "executable": false
     },
     {
@@ -244,8 +244,8 @@
     {
       "path": "tests/gallery_server_test.py",
       "sourcePath": "tests/gallery_server_test.py",
-      "sha256": "dbe91e1c034a37639df03e8a6dbcabc4ee12e415014f144aa5c0c15773ec2d18",
-      "bytes": 3940,
+      "sha256": "b20ed3337f75b1c537acbdeb8b8bcbcb09c70f0ef8d7481e733eaf57f831221c",
+      "bytes": 5740,
       "executable": false
     },
     {

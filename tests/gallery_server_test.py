@@ -20,7 +20,7 @@ class GalleryServerTest(unittest.TestCase):
         labels = {'en': 'Example', 'zh-Hans': '示例', 'zh-Hant': '範例'}
         data = {'version': 1, 'categories': {'sample': labels}, 'items': [
             {'id': 'item', 'labels': labels, 'category': 'sample',
-             'assets': {'light': 'sheet', 'dark': 'sheet'}, 'rect': [0, 0, 100, 100], 'cell': [0, 0, 100, 100], 'monochrome': True, 'description': labels}]}
+             'assets': {'light': 'sheet', 'dark': 'sheet'}, 'rect': [0, 0, 100, 100], 'cell': [0, 0, 100, 100], 'monochrome': True, 'description': labels, 'optical': [3, 2, 0, 0, 0, 0, 0, 0], 'symbol': '1'}]}
         data['items'] = [dict(data['items'][0], id=f'item-{i}') for i in range(18)]
         (self.root / 'catalog.json').write_text(json.dumps(data))
         self.proc = None
@@ -72,6 +72,41 @@ class GalleryServerTest(unittest.TestCase):
         p = subprocess.run(['python3', str(ROOT / 'scripts/gallery-server.py'), '--port', '0', '--overlay', str(self.root)],
                            capture_output=True, text=True, timeout=5)
         self.assertNotEqual(p.returncode, 0)
+
+    def test_invalid_optical_geometry_rejected(self):
+        path = self.root / 'catalog.json'
+        data = json.loads(path.read_text())
+        data['items'][0]['optical'][4:8] = [0, 0.6, 0, 0.6]
+        path.write_text(json.dumps(data))
+        p = subprocess.run(['python3', str(ROOT / 'scripts/gallery-server.py'), '--port', '0', '--overlay', str(self.root)],
+                           capture_output=True, text=True, timeout=5)
+        self.assertNotEqual(p.returncode, 0)
+
+    def test_rejects_fifo_without_blocking(self):
+        for relative in ('catalog.json', 'assets/sheet.png', 'font.woff2'):
+            with self.subTest(relative=relative):
+                path = self.root / relative
+                if path.exists():
+                    original = path.read_bytes()
+                    path.unlink()
+                else:
+                    original = None
+                os.mkfifo(path)
+                try:
+                    p = subprocess.run(['python3', str(ROOT / 'scripts/gallery-server.py'), '--port', '0', '--overlay', str(self.root)],
+                                       capture_output=True, text=True, timeout=5)
+                    self.assertNotEqual(p.returncode, 0)
+                finally:
+                    path.unlink()
+                    if original is not None:
+                        path.write_bytes(original)
+
+    def test_serves_validated_snapshot_after_disk_change(self):
+        port = self.start('--overlay', str(self.root))
+        status, original = self.request(port, '/overlay/assets/sheet.png')
+        self.assertEqual(status, 200)
+        (self.root / 'assets/sheet.png').write_bytes(b'changed')
+        self.assertEqual(self.request(port, '/overlay/assets/sheet.png')[1], original)
 
     def test_rejects_ancestor_symlink(self):
         link = self.root.parent / (self.root.name + '-link')

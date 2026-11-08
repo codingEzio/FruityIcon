@@ -3,61 +3,23 @@
 import argparse
 import importlib.util
 import json
-import os
 from pathlib import Path
 from http.server import ThreadingHTTPServer
 
 ROOT = Path(__file__).resolve().parent.parent
 
-def secure_read(path, limit):
-    """Open each path component without following symlinks; return bounded bytes."""
-    path = Path(os.path.abspath(path))
-    parts = path.parts
-    fd = os.open('/', os.O_RDONLY | os.O_DIRECTORY)
-    try:
-        for part in parts[1:-1]:
-            newfd = os.open(part, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=fd)
-            os.close(fd)
-            fd = newfd
-        filefd = os.open(parts[-1], os.O_RDONLY | os.O_NOFOLLOW, dir_fd=fd)
-        try:
-            with os.fdopen(filefd, 'rb') as f:
-                data = f.read(limit + 1)
-            if len(data) > limit:
-                raise ValueError('overlay file too large')
-            return data
-        finally:
-            pass
-    finally:
-        os.close(fd)
-
-
 def load_overlay(path):
     spec = importlib.util.spec_from_file_location('overlay_validator', ROOT / 'scripts/validate-overlay.py')
     validator = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(validator)
-    # Reject symlinks in any directory component before the validator reads data.
-    catalog_bytes = secure_read(path / 'catalog.json', validator.MAX_JSON)
-    data, dimensions = validator.validate(path)
-    if json.loads(catalog_bytes) != data:
-        raise ValueError('catalog changed during validation')
+    data, dimensions, blobs, font = validator.validate(path)
     for item in data['items']:
         item['dimensions'] = {theme: dimensions[asset] for theme, asset in item['assets'].items()}
     result = {'/overlay/catalog.json': (json.dumps(data).encode(), 'application/json; charset=utf-8')}
-    total = len(catalog_bytes)
-    for asset in dimensions:
-        payload = secure_read(path / 'assets' / (asset + '.png'), validator.MAX_ASSET)
-        total += len(payload)
-        if total > 64 * 1024 * 1024:
-            raise ValueError('overlay exceeds cache limit')
+    for asset, payload in blobs.items():
         result['/overlay/assets/' + asset + '.png'] = (payload, 'image/png')
-    font = path / 'font.woff2'
-    if font.exists():
-        payload = secure_read(font, validator.MAX_ASSET)
-        total += len(payload)
-        if total > 64 * 1024 * 1024:
-            raise ValueError('overlay exceeds cache limit')
-        result['/overlay/font.woff2'] = (payload, 'font/woff2')
+    if font is not None:
+        result['/overlay/font.woff2'] = (font, 'font/woff2')
     return result
 
 

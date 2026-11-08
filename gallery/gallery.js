@@ -1,6 +1,15 @@
 (() => {
   const words = {
     en: {
+      importOld: "Import previous preferences",
+      artwork: "Artwork",
+      vector: "SVG comparison",
+      importPrefs: "Import preferences JSON",
+      exportPrefs: "Export preferences",
+      remove: "Remove image",
+      reset: "Reset sample",
+      prefsSaved: "Preferences imported.",
+      prefsInvalid: "Invalid preferences file.",
       size: "Size",
       fit: "Optical fit",
       mono: "Monochrome",
@@ -33,6 +42,15 @@
       copyFail: "Select the CSS text to copy it.",
     },
     "zh-Hant": {
+      importOld: "匯入先前偏好",
+      artwork: "圖稿",
+      vector: "SVG 比較",
+      importPrefs: "匯入偏好 JSON",
+      exportPrefs: "匯出偏好",
+      remove: "移除圖片",
+      reset: "重設範例",
+      prefsSaved: "已匯入偏好。",
+      prefsInvalid: "偏好檔無效。",
       size: "尺寸",
       fit: "光學對齊",
       mono: "單色",
@@ -64,6 +82,15 @@
       copyFail: "請選取 CSS 文字複製。",
     },
     "zh-Hans": {
+      importOld: "导入先前偏好",
+      artwork: "图稿",
+      vector: "SVG 比较",
+      importPrefs: "导入偏好 JSON",
+      exportPrefs: "导出偏好",
+      remove: "移除图片",
+      reset: "重置示例",
+      prefsSaved: "已导入偏好。",
+      prefsInvalid: "偏好文件无效。",
       size: "尺寸",
       fit: "光学对齐",
       mono: "单色",
@@ -145,14 +172,17 @@
         "fruity.gallery.preferences.v1",
         JSON.stringify(prefs),
       );
+      return true;
     } catch {
       $("#notice").textContent = t("failed");
+      return false;
     }
   }
   function icon(item, size = 48) {
     const ns = "http://www.w3.org/2000/svg";
     const svg = document.createElementNS(ns, "svg");
-    const [x, y, w, h] = $("#fit").checked ? item.rect : item.cell;
+    const fitted = $("#fit").checked;
+    const [x, y, w, h] = fitted ? [0, 0, 1, 1] : item.cell;
     svg.setAttribute("viewBox", `${x} ${y} ${w} ${h}`);
     svg.setAttribute("class", "icon");
     if ($("#mono").checked && item.monochrome) svg.classList.add("mono");
@@ -163,16 +193,34 @@
       "href",
       `/overlay/assets/${item.assets[actualTheme()]}.png`,
     );
-    img.setAttribute("width", "4096");
-    img.setAttribute("height", "4096");
     img.setAttribute("preserveAspectRatio", "none");
-    // Image dimensions are supplied by the server, preserving sprite coordinates.
-    img.setAttribute("width", item.dimensions[actualTheme()][0]);
-    img.setAttribute("height", item.dimensions[actualTheme()][1]);
+    let target = svg;
+    if (fitted) {
+      const [sw, sh, sx, sy, top, right, bottom, left] = item.optical;
+      const clipped = document.createElementNS(ns, "svg");
+      for (
+        const [k, v] of Object.entries({
+          x: left,
+          y: top,
+          width: 1 - left - right,
+          height: 1 - top - bottom,
+          viewBox: `${left} ${top} ${1 - left - right} ${1 - top - bottom}`,
+        })
+      ) clipped.setAttribute(k, String(v));
+      img.setAttribute("x", sx);
+      img.setAttribute("y", sy);
+      img.setAttribute("width", sw);
+      img.setAttribute("height", sh);
+      svg.append(clipped);
+      target = clipped;
+    } else {
+      img.setAttribute("width", item.dimensions[actualTheme()][0]);
+      img.setAttribute("height", item.dimensions[actualTheme()][1]);
+    }
     img.addEventListener("error", () => {
       $("#notice").textContent = t("failed");
     });
-    svg.append(img);
+    target.append(img);
     return svg;
   }
   function localize() {
@@ -253,15 +301,39 @@
       trayNode.append(b);
     }
     $("#preview").replaceChildren(icon(selected, 96));
+    $("#vector-comparison").hidden = !selected.symbol;
+    $("#vector-preview").replaceChildren();
+    if (selected.symbol) {
+      const ns = "http://www.w3.org/2000/svg";
+      const svg = document.createElementNS(ns, "svg"),
+        use = document.createElementNS(ns, "use");
+      svg.setAttribute("viewBox", "0 0 24 24");
+      svg.setAttribute("class", "comparison-icon");
+      use.setAttribute("href", `#comparison-${selected.symbol}`);
+      svg.append(use);
+      $("#vector-preview").append(svg);
+    }
     $("#sizes").replaceChildren(
       ...[16, 24, 32, 48].map((n) => icon(selected, n)),
     );
     const url = `/overlay/assets/${selected.assets[actualTheme()]}.png`;
     $("#download").href = url;
     $("#download").download = selected.assets[actualTheme()] + ".png";
-    const [x, y, w, h] = $("#fit").checked ? selected.rect : selected.cell;
-    $("#recipe").textContent =
-      `width: ${w}px; height: ${h}px;\nbackground-image: url("${url}");\nbackground-position: -${x}px -${y}px;\nbackground-repeat: no-repeat;`;
+    if ($("#fit").checked) {
+      const [sw, sh, sx, sy, top, right, bottom, left] = selected.optical;
+      const mono = $("#mono").checked && selected.monochrome;
+      const paint = mono
+        ? `background-color: currentColor;\nmask-image: url("${url}");\nmask-size: ${sw}em ${sh}em;\nmask-position: ${sx}em ${sy}em;\nmask-repeat: no-repeat;`
+        : `background-image: url("${url}");\nbackground-size: ${sw}em ${sh}em;\nbackground-position: ${sx}em ${sy}em;\nbackground-repeat: no-repeat;`;
+      $("#recipe").textContent =
+        `/* Apply to a 1em square element. */\nwidth: 1em; height: 1em;\n${paint}\nclip-path: inset(${
+          top * 100
+        }% ${right * 100}% ${bottom * 100}% ${left * 100}%);`;
+    } else {
+      const [x, y, w, h] = selected.cell;
+      $("#recipe").textContent =
+        `width: ${w}px; height: ${h}px;\nbackground-image: url("${url}");\nbackground-position: -${x}px -${y}px;\nbackground-repeat: no-repeat;`;
+    }
   }
   for (const key of ["language", "theme", "font"]) {
     $(`#${key}`).addEventListener("change", async (e) => {
@@ -324,6 +396,104 @@
     preview.src = localImage;
     preview.alt = file.name;
     preview.hidden = false;
+  });
+  function clearUpload() {
+    if (localImage) URL.revokeObjectURL(localImage);
+    localImage = null;
+    $("#local-preview").removeAttribute("src");
+    $("#local-preview").hidden = true;
+    $("#upload").value = "";
+  }
+  $("#clear-upload").addEventListener("click", clearUpload);
+  $("#reset-demo").addEventListener("click", () => {
+    favorites.clear();
+    tray.clear();
+    $("#search").value = "";
+    clearUpload();
+    render();
+  });
+  $("#export-prefs").addEventListener("click", () => {
+    const blob = new Blob([JSON.stringify(prefs, null, 2)], {
+      type: "application/json",
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "fruity-preferences.json";
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  });
+  function applyImported(input) {
+    if (!input || typeof input !== "object" || Array.isArray(input)) {
+      throw Error();
+    }
+    const next = { ...prefs };
+    const allowed = {
+      language: ["en", "zh-Hant", "zh-Hans"],
+      theme: ["system", "light", "dark"],
+      font: ["system", "pixel"],
+    };
+    let count = 0;
+    for (const [key, choices] of Object.entries(allowed)) {
+      if (key in input) {
+        if (!choices.includes(input[key])) throw Error();
+        next[key] = input[key];
+        count++;
+      }
+    }
+    for (const key of ["fit", "mono"]) {
+      if (key in input) {
+        if (typeof input[key] !== "boolean") throw Error();
+        next[key] = input[key];
+        count++;
+      }
+    }
+    if ("ink" in input) {
+      if (!["color", "mono"].includes(input.ink)) throw Error();
+      next.mono = input.ink === "mono";
+      count++;
+    }
+    if ("size" in input) {
+      if (
+        !Number.isInteger(input.size) || input.size < 16 || input.size > 48 ||
+        input.size % 2
+      ) throw Error();
+      next.size = input.size;
+      count++;
+    }
+    if (!count) throw Error();
+    Object.assign(prefs, next);
+    $("#size").value = prefs.size;
+    $("#fit").checked = prefs.fit;
+    $("#mono").checked = prefs.mono;
+    const saved = save();
+    render();
+    $("#notice").textContent = t(saved ? "prefsSaved" : "failed");
+  }
+  try {
+    $("#import-old").hidden =
+      localStorage.getItem("fruity.demo.preferences.v1") === null;
+  } catch { /* Storage is unavailable. */ }
+  $("#import-old").addEventListener("click", () => {
+    try {
+      const raw = localStorage.getItem("fruity.demo.preferences.v1");
+      if (!raw || raw.length > 32768) throw Error();
+      applyImported(JSON.parse(raw));
+    } catch {
+      $("#notice").textContent = t("prefsInvalid");
+    }
+  });
+  $("#prefs-file").addEventListener("change", async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    try {
+      if (file.size > 32768) throw Error();
+      applyImported(JSON.parse(await file.text()));
+    } catch {
+      $("#notice").textContent = t("prefsInvalid");
+    } finally {
+      e.target.value = "";
+    }
   });
   $("#search").addEventListener("input", render);
   $("#category").addEventListener("change", render);

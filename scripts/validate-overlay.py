@@ -2,6 +2,9 @@
 """Validate a bounded data-only gallery overlay."""
 import argparse
 import json
+import math
+import os
+import stat
 import re
 import struct
 from pathlib import Path
@@ -13,16 +16,33 @@ IDENTIFIER = re.compile(r'^[a-z0-9][a-z0-9_-]{0,63}$')
 LANGUAGES = ('en', 'zh-Hans', 'zh-Hant')
 
 
-def checked_file(root, name):
-    if not isinstance(name, str) or not IDENTIFIER.fullmatch(name):
-        raise ValueError('invalid asset identifier')
-    path = root / 'assets' / (name + '.png')
-    if root.is_symlink() or (root / 'assets').is_symlink() or path.is_symlink():
-        raise ValueError('symlinks are not accepted')
-    if not path.is_file() or path.stat().st_size > MAX_ASSET:
-        raise ValueError('asset missing or too large')
-    with path.open('rb') as f:
-        header = f.read(24)
+def secure_read(path, limit):
+    """Read one regular file without following any path symlink."""
+    parts = Path(os.path.abspath(path)).parts
+    directory = os.open('/', os.O_RDONLY | os.O_DIRECTORY)
+    try:
+        for part in parts[1:-1]:
+            child = os.open(part, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=directory)
+            os.close(directory)
+            directory = child
+        fd = os.open(parts[-1], os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK, dir_fd=directory)
+        try:
+            info = os.fstat(fd)
+            if not stat.S_ISREG(info.st_mode) or info.st_size > limit:
+                raise ValueError('overlay entry is not a bounded regular file')
+            with os.fdopen(fd, 'rb', closefd=False) as f:
+                payload = f.read(limit + 1)
+            if len(payload) > limit:
+                raise ValueError('overlay entry exceeds size limit')
+            return payload
+        finally:
+            os.close(fd)
+    finally:
+        os.close(directory)
+
+
+def checked_file(payload):
+    header = payload[:24]
     if len(header) != 24 or header[:8] != b'\x89PNG\r\n\x1a\n' or header[12:16] != b'IHDR':
         raise ValueError('asset is not a PNG')
     width, height = struct.unpack('>II', header[16:24])
@@ -39,10 +59,8 @@ def labels(value):
 
 def validate(root):
     root = Path(root)
-    path = root / 'catalog.json'
-    if root.is_symlink() or path.is_symlink() or path.stat().st_size > MAX_JSON:
-        raise ValueError('invalid catalog file')
-    data = json.loads(path.read_text(encoding='utf-8'))
+    catalog_bytes = secure_read(root / 'catalog.json', MAX_JSON)
+    data = json.loads(catalog_bytes)
     if not isinstance(data, dict) or set(data) != {'version', 'categories', 'items'} or data['version'] != 1:
         raise ValueError('invalid catalog schema')
     categories, items = data['categories'], data['items']
@@ -52,14 +70,23 @@ def validate(root):
         raise ValueError('invalid categories')
     if not isinstance(items, list) or len(items) > MAX_ITEMS:
         raise ValueError('invalid item count')
-    seen, dimensions = set(), {}
+    seen, dimensions, blobs = set(), {}, {}
+    total = len(catalog_bytes)
     for item in items:
-        if not isinstance(item, dict) or set(item) != {'id', 'labels', 'category', 'assets', 'rect', 'cell', 'monochrome', 'description'}:
+        if not isinstance(item, dict) or set(item) != {'id', 'labels', 'category', 'assets', 'rect', 'cell', 'monochrome', 'description', 'optical', 'symbol'}:
             raise ValueError('invalid item fields')
         ident, name, category, assets, rect = (item[k] for k in ('id', 'labels', 'category', 'assets', 'rect'))
         if not isinstance(ident, str) or not IDENTIFIER.fullmatch(ident) or ident in seen:
             raise ValueError('invalid or duplicate item identifier')
         seen.add(ident)
+        optical = item['optical']
+        if (not isinstance(optical, list) or len(optical) != 8 or
+                any(type(v) not in (int, float) or not math.isfinite(v) or abs(v) > 100 for v in optical) or
+                min(optical[:2]) <= 0 or any(v < 0 or v > 1 for v in optical[4:]) or
+                optical[4] + optical[6] >= 1 or optical[5] + optical[7] >= 1):
+            raise ValueError('invalid optical geometry')
+        if item['symbol'] is not None and item['symbol'] not in tuple(str(i) for i in range(1, 13)):
+            raise ValueError('invalid comparison symbol')
         if type(item['monochrome']) is not bool:
             raise ValueError('invalid monochrome flag')
         if not labels(name) or not labels(item['description']) or category not in categories:
@@ -75,7 +102,12 @@ def validate(root):
             if not isinstance(asset, str) or not IDENTIFIER.fullmatch(asset):
                 raise ValueError('invalid asset identifier')
             if asset not in dimensions:
-                dimensions[asset] = checked_file(root, asset)
+                blob = secure_read(root / 'assets' / (asset + '.png'), MAX_ASSET)
+                total += len(blob)
+                if total > 64 * 1024 * 1024:
+                    raise ValueError('overlay exceeds cache limit')
+                dimensions[asset] = checked_file(blob)
+                blobs[asset] = blob
             image_width, image_height = dimensions[asset]
             if x + width > image_width or y + height > image_height:
                 raise ValueError('rectangle exceeds asset')
@@ -85,10 +117,13 @@ def validate(root):
             cx, cy, cw, ch = cell
             if min(cx, cy) < 0 or min(cw, ch) < 1 or cx + cw > image_width or cy + ch > image_height:
                 raise ValueError('cell exceeds asset')
-    font = root / 'font.woff2'
-    if font.is_symlink() or (font.exists() and (not font.is_file() or font.stat().st_size > MAX_ASSET)):
-        raise ValueError('invalid font')
-    return data, dimensions
+    try:
+        font = secure_read(root / 'font.woff2', MAX_ASSET)
+    except FileNotFoundError:
+        font = None
+    if font is not None and total + len(font) > 64 * 1024 * 1024:
+        raise ValueError('overlay exceeds cache limit')
+    return data, dimensions, blobs, font
 
 
 if __name__ == '__main__':
@@ -96,7 +131,7 @@ if __name__ == '__main__':
     parser.add_argument('overlay', type=Path)
     args = parser.parse_args()
     try:
-        data, dimensions = validate(args.overlay)
+        data, dimensions, _, _ = validate(args.overlay)
     except (ValueError, OSError, UnicodeError, TypeError) as exc:
         parser.exit(1, f'Invalid overlay: {exc}\n')
     print(f"Valid overlay: {len(data['items'])} items, {len(dimensions)} assets")

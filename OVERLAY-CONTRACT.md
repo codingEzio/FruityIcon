@@ -39,3 +39,19 @@ integrity, rights or font validity.
 再以本机服务器打开图集。`catalog.json` 保存三语名称、分类、浅深色 素材 ID
 和裁切坐标；PNG 放在 `assets/`，字体为可选的 `font.woff2`。 私人数据保留在 Git
 以外，也需保留原始数据和历史。
+
+## Preferences and comparisons
+
+The gallery can import the earlier demo preferences from the same browser origin
+without deleting them. For a different origin, export that origin's
+`fruity.demo.preferences.v1` localStorage value as a JSON file and choose it in
+the gallery. Import is explicit and validates the file before changing gallery
+preferences; export creates a JSON download. Samples and favorites reset on
+reload. Overlay items also carry eight optical geometry values and an optional
+comparison symbol ID (1–12); symbols are generic authored SVG geometry.
+
+偏好可由相同瀏覽器來源明確匯入；不同來源可先匯出舊版
+`fruity.demo.preferences.v1` 為 JSON，再選取檔案。舊偏好不會刪除。
+
+偏好可从相同浏览器来源明确导入；不同来源可先导出旧版
+`fruity.demo.preferences.v1` 为 JSON，再选择文件。旧偏好不会删除。

@@ -142,3 +142,23 @@ button {
   gap: 8px;
   flex-wrap: wrap;
 }
+
+.svg-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+.comparison {
+  display: flex;
+  gap: 24px;
+}
+.comparison-icon {
+  width: 96px;
+  height: 96px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
