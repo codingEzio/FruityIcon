@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FruityIcon gallery</title>
+    <link rel="stylesheet" href="gallery.css">
+    <script src="gallery.js" defer></script>
+  </head>
+  <body>
+    <header><h1>FruityIcon</h1><a href="../demo/" data-i18n="tool">Geometry tool</a></header>
+    <main>
+      <section class="controls" aria-label="Preferences">
+        <label><span data-i18n="language">Language</span><select id="language"><option value="en">English</option><option value="zh-Hant">繁體中文</option><option value="zh-Hans">简体中文</option></select></label>
+        <label><span data-i18n="theme">Theme</span><select id="theme"><option value="system" data-i18n="system">System</option><option value="light" data-i18n="light">Light</option><option value="dark" data-i18n="dark">Dark</option></select></label>
+        <label><span data-i18n="font">Font</span><select id="font"><option value="system" data-i18n="system">System</option><option value="pixel" data-i18n="pixel">Pixel</option></select></label>
+      </section>
+      <div
+        class="controls"><label><span data-i18n="size">Size</span><input id="size" type="range" min="16" max="48" step="2" value="24"><output id="size-value">24 px</output></label><label><span data-i18n="fit">Optical fit</span><input id="fit" type="checkbox" checked></label><label><span data-i18n="mono">Monochrome</span><input id="mono" type="checkbox"></label></div>
+      <p id="notice" role="status"></p>
+      <section id="library" hidden>
+        <div
+          class="filters"><label><span data-i18n="search">Search</span><input id="search" type="search"></label><label><span data-i18n="category">Category</span><select id="category"></select></label></div>
+        <p id="count" role="status"></p>
+        <div class="layout">
+          <div id="items" class="items"></div>
+          <section id="detail" class="detail"
+            hidden><h2 id="name"></h2><p id="description"></p><div id="preview"></div><div id="sizes"></div><a id="download" download data-i18n="download">Download source</a><button id="copy" data-i18n="copy">Copy CSS</button><button id="favorite" data-i18n="favorite">Favorite</button><button id="add" data-i18n="add">Add to tray</button><pre id="recipe"></pre></section>
+        </div>
+        <section
+          class="sample"><h2 data-i18n="tray">Tray</h2><div id="tray"></div><label><span data-i18n="upload">Preview local PNG</span><input id="upload" type="file" accept="image/png"></label><img id="local-preview" hidden alt=""></section>
+      </section>
+    </main>
+  </body>
+</html>

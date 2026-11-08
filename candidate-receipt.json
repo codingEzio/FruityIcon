@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "scope": "tool-only-local-candidate; no-original-artwork",
-  "seal": "7e60ca9bb59f1c1eb80509223d8bcb5a7ca83e0ada412ed94d30305c08fc234e",
+  "seal": "06877a5bc183426faff8bacac9841f6b43daee167889726b8bae548bf0722bb4",
   "files": [
     {
       "path": ".gitignore",
@@ -36,6 +36,13 @@
       "sourcePath": "LICENSE-SCOPE.json",
       "sha256": "c7e1ba34791b478cdf94e44e4c14e323295bf3e2f86cfb6f9d15ddf0a146bf0c",
       "bytes": 1233,
+      "executable": false
+    },
+    {
+      "path": "OVERLAY-CONTRACT.md",
+      "sourcePath": "OVERLAY-CONTRACT.md",
+      "sha256": "87d150aaae2e8bfcf9290094c0ac35d68deaa932efd7fa7c4349dc15ed0e8e39",
+      "bytes": 2241,
       "executable": false
     },
     {
@@ -118,8 +125,8 @@
     {
       "path": "deno.json",
       "sourcePath": "deno.json",
-      "sha256": "17bfa5be4e1ce7604705e354b61f1904bacd63d5b34344dc066177d161c860dd",
-      "bytes": 853,
+      "sha256": "b5b94fbe8d4ab5b3ce93b6e8f09a7cbc9c732d750d03a26a2b96cf1435bca92d",
+      "bytes": 935,
       "executable": false
     },
     {
@@ -151,10 +158,38 @@
       "executable": false
     },
     {
+      "path": "gallery/gallery.css",
+      "sourcePath": "gallery/gallery.css",
+      "sha256": "ed07865896bf4bfe91dcc2a57842fbd72d80c1455b40fb2427fc7ad3314faaac",
+      "bytes": 2170,
+      "executable": false
+    },
+    {
+      "path": "gallery/gallery.js",
+      "sourcePath": "gallery/gallery.js",
+      "sha256": "f742f5fed9709aea818b49258319fd2f2edec4bd71faa5f7c9bda6961f167419",
+      "bytes": 11658,
+      "executable": false
+    },
+    {
+      "path": "gallery/index.html",
+      "sourcePath": "gallery/index.html",
+      "sha256": "fbf0e3debce467849b0b903f9bbaf41fef472b262ad0b071c6765d26b97f70da",
+      "bytes": 2670,
+      "executable": false
+    },
+    {
       "path": "scripts/demo-server.py",
       "sourcePath": "scripts/demo-server.py",
       "sha256": "43dcc849db665e13b7d72f45d256987da583000f18a898198775bbbcf642cac2",
       "bytes": 3924,
+      "executable": false
+    },
+    {
+      "path": "scripts/gallery-server.py",
+      "sourcePath": "scripts/gallery-server.py",
+      "sha256": "8ae7d4b0829135f49b1f64133d405e0f7ec0f2dd22e4adeeeff93ef076954ca0",
+      "bytes": 3771,
       "executable": false
     },
     {
@@ -186,6 +221,13 @@
       "executable": false
     },
     {
+      "path": "scripts/validate-overlay.py",
+      "sourcePath": "scripts/validate-overlay.py",
+      "sha256": "d9882d02dd6c760fca385252b10f74310553901b4320cdacf5d13ecd89e275c3",
+      "bytes": 4820,
+      "executable": false
+    },
+    {
       "path": "sprite-sources.json",
       "sourcePath": "sprite-sources.json",
       "sha256": "c0edf6e7d5824c6e9c04fefcd5b6b61ae802a95027e5e90d56b0cb48c9eedc8b",
@@ -200,6 +242,13 @@
       "executable": false
     },
     {
+      "path": "tests/gallery_server_test.py",
+      "sourcePath": "tests/gallery_server_test.py",
+      "sha256": "dbe91e1c034a37639df03e8a6dbcabc4ee12e415014f144aa5c0c15773ec2d18",
+      "bytes": 3940,
+      "executable": false
+    },
+    {
       "path": "tests/png_measure_test.py",
       "sourcePath": "tests/png_measure_test.py",
       "sha256": "948e2fd7aef4bc97ed6b5e2c77e3c7d8c6c5b3771dd8b4e7d79daa9adf7b4d4f",
@@ -209,8 +258,8 @@
     {
       "path": "tool-files.json",
       "sourcePath": "tool-files.json",
-      "sha256": "8c543813e31b3f999bb4889d528d40ccb542d70fa198d0bbf90cce302993c964",
-      "bytes": 998,
+      "sha256": "678dcd88c5b6f256daad26d7d3b713ce0866dc0ce5c600abd885ec9e9af1553c",
+      "bytes": 1208,
       "executable": false
     }
   ],
