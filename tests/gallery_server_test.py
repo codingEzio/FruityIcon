@@ -22,6 +22,7 @@ class GalleryServerTest(unittest.TestCase):
             {'id': 'item', 'labels': labels, 'category': 'sample',
              'assets': {'light': 'sheet', 'dark': 'sheet'}, 'rect': [0, 0, 100, 100], 'cell': [0, 0, 100, 100], 'monochrome': True, 'description': labels, 'optical': [3, 2, 0, 0, 0, 0, 0, 0], 'symbol': '1'}]}
         data['items'] = [dict(data['items'][0], id=f'item-{i}') for i in range(18)]
+        data['items'][1]['aliases'] = ['old-example']
         data['toolbar'] = {role: f'item-{i}' for i, role in enumerate(('search', 'add', 'favorite', 'upload', 'download', 'settings'))}
         (self.root / 'catalog.json').write_text(json.dumps(data))
         self.proc = None
@@ -53,6 +54,10 @@ class GalleryServerTest(unittest.TestCase):
     def test_default_server_does_not_expose_private_data(self):
         port = self.start()
         self.assertEqual(self.request(port, '/gallery/')[0], 200)
+        self.assertEqual(self.request(port, '/')[0], 200)
+        self.assertEqual(self.request(port, '/index.html')[0], 200)
+        self.assertEqual(self.request(port, '/gallery.js')[0], 200)
+        self.assertEqual(self.request(port, '/health')[0], 200)
         self.assertEqual(self.request(port, '/overlay/catalog.json')[0], 404)
         self.assertEqual(self.request(port, '/.git/config')[0], 404)
         self.assertEqual(self.request(port, '/gallery/', f'attacker.example:{port}')[0], 400)
@@ -83,6 +88,24 @@ class GalleryServerTest(unittest.TestCase):
         status, body = self.request(port, '/overlay/catalog.json')
         self.assertEqual(status, 200)
         self.assertEqual(json.loads(body)['toolbar'], {})
+
+    def test_duplicate_legacy_alias_rejected(self):
+        path = self.root / 'catalog.json'
+        data = json.loads(path.read_text())
+        data['items'][2]['aliases'] = ['old-example']
+        path.write_text(json.dumps(data))
+        p = subprocess.run(['python3', str(ROOT / 'scripts/gallery-server.py'), '--port', '0', '--overlay', str(self.root)],
+                           capture_output=True, text=True, timeout=5)
+        self.assertNotEqual(p.returncode, 0)
+
+    def test_alias_cannot_shadow_current_id(self):
+        path = self.root / 'catalog.json'
+        data = json.loads(path.read_text())
+        data['items'][1]['aliases'] = ['item-0']
+        path.write_text(json.dumps(data))
+        p = subprocess.run(['python3', str(ROOT / 'scripts/gallery-server.py'), '--port', '0', '--overlay', str(self.root)],
+                           capture_output=True, text=True, timeout=5)
+        self.assertNotEqual(p.returncode, 0)
 
     def test_unknown_toolbar_item_rejected(self):
         path = self.root / 'catalog.json'

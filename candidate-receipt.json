@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "scope": "tool-only-local-candidate; no-original-artwork",
-  "seal": "84ace9bbc482a6ec77770a4c292f63bb85ba3124758cae7037deac9b90259867",
+  "seal": "a2895e34122525f54fd02812bcdc4eb0b6d29e41511d3e87327a2a5a8e4abd77",
   "files": [
     {
       "path": ".gitignore",
@@ -41,8 +41,8 @@
     {
       "path": "OVERLAY-CONTRACT.md",
       "sourcePath": "OVERLAY-CONTRACT.md",
-      "sha256": "20e806cc03fa178c9daea062fe04d29f617745d04ad05cc9843cf95521c3d65f",
-      "bytes": 3527,
+      "sha256": "8066b3a70b8315b89bd50ed22f1a33e4d0fa3e34d68344de8e395bf743b57ffc",
+      "bytes": 4229,
       "executable": false
     },
     {
@@ -167,8 +167,8 @@
     {
       "path": "gallery/gallery.js",
       "sourcePath": "gallery/gallery.js",
-      "sha256": "5b7864d263cff461da4c98419a6f7973a89dfea47d237f3abd2475d109f728ca",
-      "bytes": 22651,
+      "sha256": "07cd9ea2f035c70bc5f842079f1bb06b20c02356c7c9104bdddea8b68be547e1",
+      "bytes": 23728,
       "executable": false
     },
     {
@@ -188,8 +188,8 @@
     {
       "path": "scripts/gallery-server.py",
       "sourcePath": "scripts/gallery-server.py",
-      "sha256": "bf344ad8269c1a50ef5055cee0edcacdba24754953e80961447a09062552e00e",
-      "bytes": 2539,
+      "sha256": "362560be3af1fc8aeee540c14c9d6f52b739fb7b2970f91e0e07f38144ad0f6a",
+      "bytes": 2883,
       "executable": false
     },
     {
@@ -237,8 +237,8 @@
     {
       "path": "scripts/validate-overlay.py",
       "sourcePath": "scripts/validate-overlay.py",
-      "sha256": "00e1773833b4d297d56e6c6abf8bc21eb7cd2a604bb179eb20c2d520adbf83f2",
-      "bytes": 6714,
+      "sha256": "0c2ed433756fac26d92fa3d1707059a6ac115a4912fce1e78d8a67ab6a72a972",
+      "bytes": 7262,
       "executable": false
     },
     {
@@ -258,8 +258,8 @@
     {
       "path": "tests/gallery_server_test.py",
       "sourcePath": "tests/gallery_server_test.py",
-      "sha256": "08bbdad42233cf6ae7d264c1b43d9421f6155dd9909b44b2011dd8f6a7b349a6",
-      "bytes": 6796,
+      "sha256": "33ab95eb3f182b21d8b49a4a752a4de461f1fba311462b8efa44324a6f801f1e",
+      "bytes": 8052,
       "executable": false
     },
     {

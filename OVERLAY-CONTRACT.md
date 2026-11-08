@@ -60,3 +60,17 @@ comparison symbol ID (1–12); symbols are generic authored SVG geometry.
 
 偏好可从相同浏览器来源明确导入；不同来源可先导出旧版
 `fruity.demo.preferences.v1` 为 JSON，再选择文件。旧偏好不会删除。
+
+## Saved links
+
+Each item may provide `aliases`, a list of previous item IDs. The gallery opens
+`#icon-<id>` links by current ID or alias; unknown links show an error. Alias
+values must be unique and cannot shadow an item ID. The gallery server also
+serves the gallery at `/` and `/index.html` for older saved URLs. Browser
+preferences remain scoped to the exact scheme, hostname and port.
+
+可在私人資料的 `aliases` 保留舊項目 ID，以開啟 `#icon-<id>` 舊連結；
+瀏覽器偏好仍依完整協定、主機名與連接埠隔離。
+
+可在私人数据的 `aliases` 保留旧项目 ID，以打开 `#icon-<id>` 旧链接；
+浏览器偏好仍按完整协议、主机名和端口隔离。

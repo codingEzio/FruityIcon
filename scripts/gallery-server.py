@@ -39,6 +39,11 @@ if __name__ == '__main__':
                        'gallery/gallery.js': 'text/javascript; charset=utf-8'})
     files = demo.snapshot(ROOT)
     files['/gallery/'] = files['/gallery/index.html']
+    files['/'] = files['/gallery/index.html']
+    files['/index.html'] = files['/gallery/index.html']
+    files['/gallery.css'] = files['/gallery/gallery.css']
+    files['/gallery.js'] = files['/gallery/gallery.js']
+    files['/health'] = (json.dumps({'ok': True, 'project': 'X-FruityIcon', 'assets': len(files)}).encode(), 'application/json')
     if args.overlay:
         files.update(load_overlay(args.overlay))
     with runtime.BoundedHTTPServer(('127.0.0.1', args.port), demo.handler_for(files, args.port),

@@ -1,6 +1,7 @@
 (() => {
   const words = {
     en: {
+      linkMissing: "This gallery link does not match an item.",
       refresh: "Refresh",
       toolbarTitle: "Try the controls",
       roleSearch: "Search",
@@ -50,6 +51,7 @@
       copyFail: "Select the CSS text to copy it.",
     },
     "zh-Hant": {
+      linkMissing: "此圖庫連結找不到對應項目。",
       refresh: "重新整理",
       toolbarTitle: "試用操作",
       roleSearch: "搜尋",
@@ -98,6 +100,7 @@
       copyFail: "請選取 CSS 文字複製。",
     },
     "zh-Hans": {
+      linkMissing: "此图集链接找不到对应项目。",
       refresh: "刷新",
       toolbarTitle: "试用操作",
       roleSearch: "搜索",
@@ -182,7 +185,7 @@
   if (typeof prefs.mono !== "boolean") prefs.mono = false;
   $("#fit").checked = prefs.fit;
   $("#mono").checked = prefs.mono;
-  let data = null, selected = null, failure = "empty";
+  let data = null, selected = null, failure = "empty", linkMissing = false;
   const favorites = new Set(), tray = new Set();
   let localImage = null, uploadVersion = 0;
   const t = (key) => words[prefs.language][key];
@@ -309,6 +312,29 @@
       }
     }
   }
+  function selectFromHash() {
+    if (!data || !location.hash) return;
+    let id;
+    try {
+      if (!location.hash.startsWith("#icon-")) throw Error();
+      id = decodeURIComponent(location.hash.slice(6));
+      if (!/^[a-z0-9][a-z0-9_-]{0,63}$/.test(id)) throw Error();
+    } catch {
+      linkMissing = true;
+      return;
+    }
+    const item = data.items.find((i) =>
+      i.id === id || (i.aliases || []).includes(id)
+    );
+    if (!item) {
+      linkMissing = true;
+      return;
+    }
+    linkMissing = false;
+    selected = item;
+    $("#search").value = "";
+    $("#category").value = "";
+  }
   function localize() {
     document.documentElement.lang = prefs.language;
     for (const node of document.querySelectorAll("[data-i18n]")) {
@@ -324,7 +350,9 @@
       $(`#${key}`).value = prefs[key];
     }
     $("#library").hidden = !data;
-    $("#notice").textContent = data ? "" : t(failure);
+    $("#notice").textContent = data
+      ? (linkMissing ? t("linkMissing") : "")
+      : t(failure);
     if (!data) return;
     const category = $("#category"), previous = category.value;
     category.replaceChildren(new Option(t("all"), ""));
@@ -356,6 +384,8 @@
       b.append(span);
       b.onclick = () => {
         selected = item;
+        linkMissing = false;
+        history.replaceState(null, "", `#icon-${encodeURIComponent(item.id)}`);
         render();
       };
       const card = document.createElement("div");
@@ -642,6 +672,10 @@
     }
   });
   $("#refresh").addEventListener("click", () => location.reload());
+  addEventListener("hashchange", () => {
+    selectFromHash();
+    render();
+  });
   $("#search").addEventListener("input", render);
   $("#category").addEventListener("change", render);
   matchMedia("(prefers-color-scheme: dark)").addEventListener("change", render);
@@ -663,6 +697,7 @@
     if (r.status === 404) return;
     if (!r.ok) throw Error();
     data = await r.json();
+    selectFromHash();
     render();
   }).catch(() => {
     failure = "failed";

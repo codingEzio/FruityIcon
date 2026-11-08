@@ -72,14 +72,22 @@ def validate(root):
     if not isinstance(items, list) or len(items) > MAX_ITEMS:
         raise ValueError('invalid item count')
     seen, dimensions, blobs = set(), {}, {}
+    aliases = set()
     total = len(catalog_bytes)
     for item in items:
-        if not isinstance(item, dict) or set(item) != {'id', 'labels', 'category', 'assets', 'rect', 'cell', 'monochrome', 'description', 'optical', 'symbol'}:
+        required = {'id', 'labels', 'category', 'assets', 'rect', 'cell', 'monochrome', 'description', 'optical', 'symbol'}
+        if not isinstance(item, dict) or set(item) not in (required, required | {'aliases'}):
             raise ValueError('invalid item fields')
         ident, name, category, assets, rect = (item[k] for k in ('id', 'labels', 'category', 'assets', 'rect'))
         if not isinstance(ident, str) or not IDENTIFIER.fullmatch(ident) or ident in seen:
             raise ValueError('invalid or duplicate item identifier')
         seen.add(ident)
+        names = item.get('aliases', [])
+        if (not isinstance(names, list) or len(names) > 20 or
+                any(not isinstance(a, str) or not IDENTIFIER.fullmatch(a) for a in names) or
+                len(names) != len(set(names)) or aliases.intersection(names)):
+            raise ValueError('invalid or duplicate link aliases')
+        aliases.update(names)
         optical = item['optical']
         if (not isinstance(optical, list) or len(optical) != 8 or
                 any(type(v) not in (int, float) or not math.isfinite(v) or abs(v) > 100 for v in optical) or
@@ -118,6 +126,8 @@ def validate(root):
             cx, cy, cw, ch = cell
             if min(cx, cy) < 0 or min(cw, ch) < 1 or cx + cw > image_width or cy + ch > image_height:
                 raise ValueError('cell exceeds asset')
+    if seen.intersection(aliases):
+        raise ValueError('link alias conflicts with an item id')
     toolbar = data['toolbar']
     roles = {'search', 'add', 'favorite', 'upload', 'download', 'settings'}
     if not isinstance(toolbar, dict) or set(toolbar) not in (set(), roles) or any(
