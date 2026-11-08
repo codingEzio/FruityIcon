@@ -11,9 +11,12 @@ python3 -B scripts/gallery-server.py --port 18210 --overlay /path/to/overlay
 
 Open `http://127.0.0.1:18210/gallery/`. The server binds loopback and accepts
 only localhost Host headers. It caches the selected overlay in memory at start;
-restart after editing it. Only the validated catalog, referenced PNG sheets and
-optional `font.woff2` are exposed. Avoid using an overlay with untrusted local
-writers. Keep private data outside Git and retain the original source/history.
+restart after editing it. Both server entry points limit active connections to
+16 and each request to five seconds by default; `--connections` (1–128) and
+`--timeout` (0.1–120 seconds) override these limits. Excess connections close.
+Only the validated catalog, referenced PNG sheets and optional `font.woff2` are
+exposed. Avoid using an overlay with untrusted local writers. Keep private data
+outside Git and retain the original source/history.
 
 The directory contains `catalog.json`, `assets/<id>.png`, and optional
 `font.woff2`. Version 1 catalog fields are `version`, `categories`, `items`.

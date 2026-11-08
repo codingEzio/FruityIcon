@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "scope": "tool-only-local-candidate; no-original-artwork",
-  "seal": "e5dc51b8f6fdf1d44d437efbbc315c2ca424870fc0816a57aa16e22c70ca464e",
+  "seal": "3cc021c33a37c0ecbe1307a70605ec5d47cfbb7e57b3f0094ef3a1abcd8a793a",
   "files": [
     {
       "path": ".gitignore",
@@ -41,8 +41,8 @@
     {
       "path": "OVERLAY-CONTRACT.md",
       "sourcePath": "OVERLAY-CONTRACT.md",
-      "sha256": "09f857e20e284fc0b310bd88598f95decfe5d144ddabeab0af67df7a817bd705",
-      "bytes": 3137,
+      "sha256": "1495f515e48c4173c3d8f364f42af98a46cdfbedc9a86d31cd7d0cd879d52103",
+      "bytes": 3349,
       "executable": false
     },
     {
@@ -125,8 +125,8 @@
     {
       "path": "deno.json",
       "sourcePath": "deno.json",
-      "sha256": "b5b94fbe8d4ab5b3ce93b6e8f09a7cbc9c732d750d03a26a2b96cf1435bca92d",
-      "bytes": 935,
+      "sha256": "c02fef72ac69dcf3b513b65584ccb5cde31ae2b3235c1cdd172b12573e7d9785",
+      "bytes": 937,
       "executable": false
     },
     {
@@ -188,8 +188,8 @@
     {
       "path": "scripts/gallery-server.py",
       "sourcePath": "scripts/gallery-server.py",
-      "sha256": "5609ede245253f88bd4fe55145d2fb15db5bbed9077425433da103e0a92f3aab",
-      "bytes": 2291,
+      "sha256": "bf344ad8269c1a50ef5055cee0edcacdba24754953e80961447a09062552e00e",
+      "bytes": 2539,
       "executable": false
     },
     {
@@ -218,6 +218,20 @@
       "sourcePath": "scripts/public-check.ts",
       "sha256": "1972729bee490622f3413241aa06eefc943be91b57944767c0ad9520b99ec5f7",
       "bytes": 8964,
+      "executable": false
+    },
+    {
+      "path": "scripts/public-server.py",
+      "sourcePath": "scripts/public-server.py",
+      "sha256": "29d0d75588fb4a5fc1e67987ed551810fc14884626d47d310b889ba28d539925",
+      "bytes": 1168,
+      "executable": false
+    },
+    {
+      "path": "scripts/server-runtime.py",
+      "sourcePath": "scripts/server-runtime.py",
+      "sha256": "45042792dc5d711ac248497e69419a823ce483c1591188c8784e0b62014d685c",
+      "bytes": 1896,
       "executable": false
     },
     {
@@ -256,10 +270,17 @@
       "executable": false
     },
     {
+      "path": "tests/server_limits_test.py",
+      "sourcePath": "tests/server_limits_test.py",
+      "sha256": "e7240b8d13bb03f5359c019ec359137e7dccc711e8fbb4bbba88588b465cc724",
+      "bytes": 4539,
+      "executable": false
+    },
+    {
       "path": "tool-files.json",
       "sourcePath": "tool-files.json",
-      "sha256": "678dcd88c5b6f256daad26d7d3b713ce0866dc0ce5c600abd885ec9e9af1553c",
-      "bytes": 1208,
+      "sha256": "877cc5ebeb37735edd490624c4eb8ce789c41cb7a8eb2b1d466435a35e6f7e8e",
+      "bytes": 1308,
       "executable": false
     }
   ],

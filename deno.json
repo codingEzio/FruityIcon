@@ -11,7 +11,7 @@
     "check": "deno fmt --check demo gallery deno.json README.md README.zh-Hant.md README.zh-Hans.md DEPENDENCIES.md LICENSE-SCOPE.json sprite-sources.json examples/provenance.json tool-files.json && deno lint demo/app.js gallery/gallery.js scripts/public-check.ts && deno check scripts/public-check.ts && python3 -B scripts/measure-icons.py --check",
     "test": "python3 -B -m unittest discover -s tests -p '*_test.py'",
     "build": "deno task measure && deno task check",
-    "demo": "python3 -B scripts/demo-server.py",
+    "demo": "python3 -B scripts/public-server.py",
     "public:tool": "deno run --allow-read --allow-write=Local scripts/public-check.ts --tool-only --export",
     "gallery": "python3 -B scripts/gallery-server.py"
   }

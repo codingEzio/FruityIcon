@@ -35,11 +35,14 @@
     "scripts/install-deps.sh",
     "scripts/measure-icons.py",
     "scripts/public-check.ts",
+    "scripts/public-server.py",
+    "scripts/server-runtime.py",
     "scripts/validate-overlay.py",
     "sprite-sources.json",
     "tests/demo_server_test.py",
     "tests/gallery_server_test.py",
     "tests/png_measure_test.py",
+    "tests/server_limits_test.py",
     "tool-files.json"
   ]
 }
