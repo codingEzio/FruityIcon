@@ -59,7 +59,7 @@
         </symbol>
       </defs>
     </svg>
-    <header><h1>FruityIcon</h1><a href="../demo/" data-i18n="tool">Geometry tool</a></header>
+    <header><h1>FruityIcon</h1><button id="refresh" type="button" data-i18n="refresh">Refresh</button><a href="../demo/" data-i18n="tool">Geometry tool</a></header>
     <main>
       <section class="controls" aria-label="Preferences">
         <label><span data-i18n="language">Language</span><select id="language"><option value="en">English</option><option value="zh-Hant">繁體中文</option><option value="zh-Hans">简体中文</option></select></label>
@@ -80,6 +80,19 @@
           <section id="detail" class="detail"
             hidden><h2 id="name"></h2><p id="description"></p><div class="comparison"><div><span data-i18n="artwork">Artwork</span><div id="preview"></div></div><div id="vector-comparison"><span data-i18n="vector">SVG comparison</span><div id="vector-preview"></div></div></div><div id="sizes"></div><a id="download" download data-i18n="download">Download source</a><button id="copy" data-i18n="copy">Copy CSS</button><button id="favorite" data-i18n="favorite">Favorite</button><button id="add" data-i18n="add">Add to tray</button><pre id="recipe"></pre></section>
         </div>
+        <section class="sample" id="toolbars">
+          <h2 data-i18n="toolbarTitle">Try the controls</h2>
+          <div class="toolbar-comparison">
+            <div>
+              <h3 data-i18n="vector">SVG comparison</h3>
+              <div id="toolbar-vector" class="toolbar"></div>
+            </div>
+            <div>
+              <h3 data-i18n="artwork">Artwork</h3>
+              <div id="toolbar-artwork" class="toolbar"></div>
+            </div>
+          </div>
+        </section>
         <section
           class="sample"><h2 data-i18n="tray">Tray</h2><div id="tray"></div><label><span data-i18n="upload">Preview local PNG</span><input id="upload" type="file" accept="image/png"></label><img id="local-preview" hidden alt=""><button id="clear-upload" type="button" data-i18n="remove">Remove image</button><button id="reset-demo" type="button" data-i18n="reset">Reset sample</button></section>
       </section>

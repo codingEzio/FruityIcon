@@ -19,15 +19,17 @@ exposed. Avoid using an overlay with untrusted local writers. Keep private data
 outside Git and retain the original source/history.
 
 The directory contains `catalog.json`, `assets/<id>.png`, and optional
-`font.woff2`. Version 1 catalog fields are `version`, `categories`, `items`.
-Categories map ASCII identifiers to labels for `en`, `zh-Hans`, `zh-Hant`. Each
-item has a unique `id`, `labels` in those three languages, a `category`,
-`description` in the same three languages, `assets` with `light` and `dark` PNG
-identifiers, `rect` and `cell` with integer x, y, width, height in pixels, and a
-boolean `monochrome` flag. The fit control switches between rect and cell. IDs
-contain lowercase ASCII letters, digits, hyphens and underscores. The validator
-enforces size limits, PNG header and bounds; it does not prove full image
-integrity, rights or font validity.
+`font.woff2`. Version 1 catalog fields are `version`, `categories`, `items`, and
+`toolbar`. The optional `toolbar` is either empty or maps the six standard
+actions to item IDs; it defines both the comparison artwork and the
+theme-specific download sheet. Categories map ASCII identifiers to labels for
+`en`, `zh-Hans`, `zh-Hant`. Each item has a unique `id`, `labels` in those three
+languages, a `category`, `description` in the same three languages, `assets`
+with `light` and `dark` PNG identifiers, `rect` and `cell` with integer x, y,
+width, height in pixels, and a boolean `monochrome` flag. The fit control
+switches between rect and cell. IDs contain lowercase ASCII letters, digits,
+hyphens and underscores. The validator enforces size limits, PNG header and
+bounds; it does not prove full image integrity, rights or font validity.
 
 # 本機圖庫資料
 

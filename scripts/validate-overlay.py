@@ -61,8 +61,9 @@ def validate(root):
     root = Path(root)
     catalog_bytes = secure_read(root / 'catalog.json', MAX_JSON)
     data = json.loads(catalog_bytes)
-    if not isinstance(data, dict) or set(data) != {'version', 'categories', 'items'} or data['version'] != 1:
+    if not isinstance(data, dict) or set(data) not in ({'version', 'categories', 'items'}, {'version', 'categories', 'items', 'toolbar'}) or data['version'] != 1:
         raise ValueError('invalid catalog schema')
+    data.setdefault('toolbar', {})
     categories, items = data['categories'], data['items']
     if not isinstance(categories, dict) or len(categories) > 100 or any(
         not IDENTIFIER.fullmatch(k) or not labels(v) for k, v in categories.items()
@@ -117,6 +118,12 @@ def validate(root):
             cx, cy, cw, ch = cell
             if min(cx, cy) < 0 or min(cw, ch) < 1 or cx + cw > image_width or cy + ch > image_height:
                 raise ValueError('cell exceeds asset')
+    toolbar = data['toolbar']
+    roles = {'search', 'add', 'favorite', 'upload', 'download', 'settings'}
+    if not isinstance(toolbar, dict) or set(toolbar) not in (set(), roles) or any(
+        not isinstance(value, str) or value not in seen for value in toolbar.values()
+    ):
+        raise ValueError('invalid toolbar mapping')
     try:
         font = secure_read(root / 'font.woff2', MAX_ASSET)
     except FileNotFoundError:

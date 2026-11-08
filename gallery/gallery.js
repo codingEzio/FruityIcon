@@ -1,6 +1,14 @@
 (() => {
   const words = {
     en: {
+      refresh: "Refresh",
+      toolbarTitle: "Try the controls",
+      roleSearch: "Search",
+      roleAdd: "Add",
+      roleFavorite: "Favorite",
+      roleUpload: "Upload",
+      roleDownload: "Download",
+      roleSettings: "Toggle optical fit",
       importOld: "Import previous preferences",
       artwork: "Artwork",
       vector: "SVG comparison",
@@ -42,6 +50,14 @@
       copyFail: "Select the CSS text to copy it.",
     },
     "zh-Hant": {
+      refresh: "重新整理",
+      toolbarTitle: "試用操作",
+      roleSearch: "搜尋",
+      roleAdd: "加入",
+      roleFavorite: "收藏",
+      roleUpload: "上傳",
+      roleDownload: "下載",
+      roleSettings: "切換光學對齊",
       importOld: "匯入先前偏好",
       artwork: "圖稿",
       vector: "SVG 比較",
@@ -82,6 +98,14 @@
       copyFail: "請選取 CSS 文字複製。",
     },
     "zh-Hans": {
+      refresh: "刷新",
+      toolbarTitle: "试用操作",
+      roleSearch: "搜索",
+      roleAdd: "加入",
+      roleFavorite: "收藏",
+      roleUpload: "上传",
+      roleDownload: "下载",
+      roleSettings: "切换光学对齐",
       importOld: "导入先前偏好",
       artwork: "图稿",
       vector: "SVG 比较",
@@ -160,7 +184,7 @@
   $("#mono").checked = prefs.mono;
   let data = null, selected = null, failure = "empty";
   const favorites = new Set(), tray = new Set();
-  let localImage = null;
+  let localImage = null, uploadVersion = 0;
   const t = (key) => words[prefs.language][key];
   const actualTheme = () =>
     prefs.theme === "system"
@@ -223,6 +247,68 @@
     target.append(img);
     return svg;
   }
+  function symbol(item, size = 24) {
+    if (!item.symbol) return null;
+    const ns = "http://www.w3.org/2000/svg",
+      svg = document.createElementNS(ns, "svg"),
+      use = document.createElementNS(ns, "use");
+    svg.setAttribute("viewBox", "0 0 24 24");
+    svg.setAttribute("class", "comparison-icon");
+    svg.style.width = `${size}px`;
+    svg.style.height = `${size}px`;
+    use.setAttribute("href", `#comparison-${item.symbol}`);
+    svg.append(use);
+    return svg;
+  }
+  function renderToolbars() {
+    const roles = [
+      "search",
+      "add",
+      "favorite",
+      "upload",
+      "download",
+      "settings",
+    ];
+    const mapping = data.toolbar;
+    $("#toolbars").hidden = !Object.keys(mapping).length;
+    for (const family of ["vector", "artwork"]) {
+      const bar = $(`#toolbar-${family}`);
+      bar.replaceChildren();
+      for (const role of roles) {
+        if (!mapping[role]) continue;
+        const item = data.items.find((i) => i.id === mapping[role]);
+        const button = document.createElement("button");
+        button.type = "button";
+        button.dataset.action = role;
+        button.dataset.family = family;
+        button.setAttribute(
+          "aria-label",
+          t(`role${role[0].toUpperCase()}${role.slice(1)}`),
+        );
+        if (role === "add") {
+          button.disabled = !selected || tray.has(selected.id);
+        }
+        if (role === "favorite") {
+          button.disabled = !selected;
+          button.setAttribute(
+            "aria-pressed",
+            String(!!selected && favorites.has(selected.id)),
+          );
+        }
+        if (role === "settings") {
+          button.setAttribute("aria-pressed", String(prefs.fit));
+        }
+        const graphic = family === "artwork"
+          ? icon(item, 24)
+          : symbol(item, 24);
+        if (graphic) button.append(graphic);
+        const label = document.createElement("span");
+        label.textContent = t(`role${role[0].toUpperCase()}${role.slice(1)}`);
+        button.append(label);
+        bar.append(button);
+      }
+    }
+  }
   function localize() {
     document.documentElement.lang = prefs.language;
     for (const node of document.querySelectorAll("[data-i18n]")) {
@@ -272,8 +358,29 @@
         selected = item;
         render();
       };
-      list.append(b);
+      const card = document.createElement("div");
+      card.className = "item-card";
+      card.append(b);
+      const star = document.createElement("button");
+      star.type = "button";
+      star.className = "item-star";
+      star.setAttribute(
+        "aria-label",
+        `${t(favorites.has(item.id) ? "unfavorite" : "favorite")}: ${
+          item.labels[prefs.language]
+        }`,
+      );
+      star.setAttribute("aria-pressed", String(favorites.has(item.id)));
+      star.textContent = favorites.has(item.id) ? "★" : "☆";
+      star.onclick = () => {
+        if (favorites.has(item.id)) favorites.delete(item.id);
+        else favorites.add(item.id);
+        render();
+      };
+      card.append(star);
+      list.append(card);
     }
+    renderToolbars();
     $("#detail").hidden = !selected;
     if (!selected) return;
     $("#name").textContent = selected.labels[prefs.language];
@@ -364,6 +471,29 @@
     save();
     render();
   });
+  $("#toolbars").addEventListener("click", (e) => {
+    const button = e.target.closest("button[data-action]");
+    if (!button || button.disabled) return;
+    const action = button.dataset.action;
+    if (action === "search") {
+      $("#search").focus();
+      $("#search").scrollIntoView({ block: "nearest" });
+    }
+    if (action === "add") $("#add").click();
+    if (action === "favorite") $("#favorite").click();
+    if (action === "upload") $("#upload").click();
+    if (action === "settings") {
+      $("#fit").checked = !$("#fit").checked;
+      $("#fit").dispatchEvent(new Event("change"));
+    }
+    if (action === "download") {
+      const item = data.items.find((i) => i.id === data.toolbar.download);
+      const a = document.createElement("a");
+      a.href = `/overlay/assets/${item.assets[actualTheme()]}.png`;
+      a.download = item.assets[actualTheme()] + ".png";
+      a.click();
+    }
+  });
   $("#favorite").addEventListener("click", () => {
     if (!selected) return;
     if (favorites.has(selected.id)) favorites.delete(selected.id);
@@ -377,7 +507,9 @@
   $("#upload").addEventListener("change", async (e) => {
     const file = e.target.files[0];
     if (!file) return;
+    const version = ++uploadVersion;
     const header = new Uint8Array(await file.slice(0, 24).arrayBuffer());
+    if (version !== uploadVersion) return;
     const valid = header.length === 24 &&
       [137, 80, 78, 71, 13, 10, 26, 10].every((v, i) => header[i] === v);
     const view = new DataView(header.buffer);
@@ -390,14 +522,28 @@
       $("#notice").textContent = t("badImage");
       return;
     }
-    if (localImage) URL.revokeObjectURL(localImage);
-    localImage = URL.createObjectURL(file);
-    const preview = $("#local-preview");
-    preview.src = localImage;
-    preview.alt = file.name;
-    preview.hidden = false;
+    const url = URL.createObjectURL(file);
+    const probe = new Image();
+    probe.onload = () => {
+      if (version !== uploadVersion) {
+        URL.revokeObjectURL(url);
+        return;
+      }
+      if (localImage) URL.revokeObjectURL(localImage);
+      localImage = url;
+      const preview = $("#local-preview");
+      preview.src = url;
+      preview.alt = file.name;
+      preview.hidden = false;
+    };
+    probe.onerror = () => {
+      URL.revokeObjectURL(url);
+      if (version === uploadVersion) $("#notice").textContent = t("badImage");
+    };
+    probe.src = url;
   });
   function clearUpload() {
+    uploadVersion++;
     if (localImage) URL.revokeObjectURL(localImage);
     localImage = null;
     $("#local-preview").removeAttribute("src");
@@ -495,6 +641,7 @@
       e.target.value = "";
     }
   });
+  $("#refresh").addEventListener("click", () => location.reload());
   $("#search").addEventListener("input", render);
   $("#category").addEventListener("change", render);
   matchMedia("(prefers-color-scheme: dark)").addEventListener("change", render);
@@ -503,6 +650,11 @@
       await navigator.clipboard.writeText($("#recipe").textContent);
       $("#notice").textContent = t("copied");
     } catch {
+      const range = document.createRange();
+      range.selectNodeContents($("#recipe"));
+      const selection = getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
       $("#notice").textContent = t("copyFail");
     }
   });

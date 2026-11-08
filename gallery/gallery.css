@@ -162,3 +162,42 @@ button {
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+
+.toolbar-comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.toolbar button {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+}
+.toolbar button span {
+  font-size: 12px;
+}
+@media (max-width:640px) {
+  .toolbar-comparison {
+    grid-template-columns: 1fr;
+  }
+}
+
+.item-card {
+  position: relative;
+}
+.item-card > button:first-child {
+  width: 100%;
+  min-height: 80px;
+}
+.item-card .item-star {
+  position: absolute;
+  right: 3px;
+  top: 3px;
+  border: 0;
+  padding: 2px 5px;
+}

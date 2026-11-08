@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "scope": "tool-only-local-candidate; no-original-artwork",
-  "seal": "3cc021c33a37c0ecbe1307a70605ec5d47cfbb7e57b3f0094ef3a1abcd8a793a",
+  "seal": "84ace9bbc482a6ec77770a4c292f63bb85ba3124758cae7037deac9b90259867",
   "files": [
     {
       "path": ".gitignore",
@@ -41,8 +41,8 @@
     {
       "path": "OVERLAY-CONTRACT.md",
       "sourcePath": "OVERLAY-CONTRACT.md",
-      "sha256": "1495f515e48c4173c3d8f364f42af98a46cdfbedc9a86d31cd7d0cd879d52103",
-      "bytes": 3349,
+      "sha256": "20e806cc03fa178c9daea062fe04d29f617745d04ad05cc9843cf95521c3d65f",
+      "bytes": 3527,
       "executable": false
     },
     {
@@ -160,22 +160,22 @@
     {
       "path": "gallery/gallery.css",
       "sourcePath": "gallery/gallery.css",
-      "sha256": "11650a0fe0e0ab438fd9ad4d7ad8093a1ed8417badc08d5dc31adda38c169262",
-      "bytes": 2460,
+      "sha256": "cdcd0bcd77cfa48b98df7dea61f25d872b64701ff7a41991f5e17c7bb4162987",
+      "bytes": 3033,
       "executable": false
     },
     {
       "path": "gallery/gallery.js",
       "sourcePath": "gallery/gallery.js",
-      "sha256": "e74df26ed8049cfaa410c3902dcbb5d05dfaa21ab117232c29225e40a9aa8fde",
-      "bytes": 17432,
+      "sha256": "5b7864d263cff461da4c98419a6f7973a89dfea47d237f3abd2475d109f728ca",
+      "bytes": 22651,
       "executable": false
     },
     {
       "path": "gallery/index.html",
       "sourcePath": "gallery/index.html",
-      "sha256": "b394548365ebdba3a7f2c64a415e60a5cdd201b518de51e0cd182179b2b2c8e7",
-      "bytes": 5635,
+      "sha256": "a1ccff2b9e7747a38b47b77420b08a8d959f9f351b18fc9bcb8e3cf56fc90395",
+      "bytes": 6200,
       "executable": false
     },
     {
@@ -237,8 +237,8 @@
     {
       "path": "scripts/validate-overlay.py",
       "sourcePath": "scripts/validate-overlay.py",
-      "sha256": "28f0c2ffcef99c15d1fe023260f35bf7afd51f51026e46e8abffbb400b5e8c81",
-      "bytes": 6292,
+      "sha256": "00e1773833b4d297d56e6c6abf8bc21eb7cd2a604bb179eb20c2d520adbf83f2",
+      "bytes": 6714,
       "executable": false
     },
     {
@@ -258,8 +258,8 @@
     {
       "path": "tests/gallery_server_test.py",
       "sourcePath": "tests/gallery_server_test.py",
-      "sha256": "b20ed3337f75b1c537acbdeb8b8bcbcb09c70f0ef8d7481e733eaf57f831221c",
-      "bytes": 5740,
+      "sha256": "08bbdad42233cf6ae7d264c1b43d9421f6155dd9909b44b2011dd8f6a7b349a6",
+      "bytes": 6796,
       "executable": false
     },
     {

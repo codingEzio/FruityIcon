@@ -22,6 +22,7 @@ class GalleryServerTest(unittest.TestCase):
             {'id': 'item', 'labels': labels, 'category': 'sample',
              'assets': {'light': 'sheet', 'dark': 'sheet'}, 'rect': [0, 0, 100, 100], 'cell': [0, 0, 100, 100], 'monochrome': True, 'description': labels, 'optical': [3, 2, 0, 0, 0, 0, 0, 0], 'symbol': '1'}]}
         data['items'] = [dict(data['items'][0], id=f'item-{i}') for i in range(18)]
+        data['toolbar'] = {role: f'item-{i}' for i, role in enumerate(('search', 'add', 'favorite', 'upload', 'download', 'settings'))}
         (self.root / 'catalog.json').write_text(json.dumps(data))
         self.proc = None
 
@@ -69,6 +70,25 @@ class GalleryServerTest(unittest.TestCase):
         target = self.root / 'assets/sheet.png'
         target.unlink()
         target.symlink_to(ROOT / 'examples/actions-light.png')
+        p = subprocess.run(['python3', str(ROOT / 'scripts/gallery-server.py'), '--port', '0', '--overlay', str(self.root)],
+                           capture_output=True, text=True, timeout=5)
+        self.assertNotEqual(p.returncode, 0)
+
+    def test_previous_catalog_without_toolbar_remains_supported(self):
+        path = self.root / 'catalog.json'
+        data = json.loads(path.read_text())
+        del data['toolbar']
+        path.write_text(json.dumps(data))
+        port = self.start('--overlay', str(self.root))
+        status, body = self.request(port, '/overlay/catalog.json')
+        self.assertEqual(status, 200)
+        self.assertEqual(json.loads(body)['toolbar'], {})
+
+    def test_unknown_toolbar_item_rejected(self):
+        path = self.root / 'catalog.json'
+        data = json.loads(path.read_text())
+        data['toolbar']['download'] = 'not-in-catalog'
+        path.write_text(json.dumps(data))
         p = subprocess.run(['python3', str(ROOT / 'scripts/gallery-server.py'), '--port', '0', '--overlay', str(self.root)],
                            capture_output=True, text=True, timeout=5)
         self.assertNotEqual(p.returncode, 0)
