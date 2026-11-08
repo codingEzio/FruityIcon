@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "scope": "tool-only-local-candidate; no-original-artwork",
-  "seal": "a2895e34122525f54fd02812bcdc4eb0b6d29e41511d3e87327a2a5a8e4abd77",
+  "seal": "82019d75cb428cfea99995914399327ca8510c622153087820f2aa25452d9e5a",
   "files": [
     {
       "path": ".gitignore",
@@ -167,8 +167,8 @@
     {
       "path": "gallery/gallery.js",
       "sourcePath": "gallery/gallery.js",
-      "sha256": "07cd9ea2f035c70bc5f842079f1bb06b20c02356c7c9104bdddea8b68be547e1",
-      "bytes": 23728,
+      "sha256": "7244657563881cbf7203cb8d5938c95b84ab98a22eaacc1cd7f9001d343aff84",
+      "bytes": 23783,
       "executable": false
     },
     {

@@ -313,7 +313,11 @@
     }
   }
   function selectFromHash() {
-    if (!data || !location.hash) return;
+    if (!data) return;
+    if (!location.hash) {
+      linkMissing = false;
+      return;
+    }
     let id;
     try {
       if (!location.hash.startsWith("#icon-")) throw Error();
