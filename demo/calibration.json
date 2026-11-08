@@ -1,0 +1,160 @@
+{
+  "schemaVersion": 1,
+  "alphaThreshold": 32,
+  "opticalFill": 0.86,
+  "decisions": {
+    "alphaThreshold": "Ignore very faint edge pigment when measuring occupied shape.",
+    "opticalFill": "Leave 7 percent padding on each side of the dominant dimension.",
+    "themeUnion": "Use the union of both action palettes to avoid layout shifts on theme changes."
+  },
+  "sources": {
+    "examples/actions-light.png": "d55882ae2bdc6a5383cbdc04b93a93c2b2357dd38d5705aa7f3baa8720d0cd38",
+    "examples/actions-dark.png": "8e54edf35550b7bd1aaef5772d3863b427eb15dccba2ee7770091e48e201c821"
+  },
+  "items": [
+    {
+      "kind": "action",
+      "id": "circle",
+      "batch": "examples",
+      "bounds": [
+        116,
+        116,
+        397,
+        397
+      ],
+      "maxSide": 281,
+      "css": {
+        "sprite-w": 4.700925266903915,
+        "sprite-h": 3.133950177935943,
+        "sprite-x": -0.285017793594306,
+        "sprite-y": -0.285017793594306,
+        "col": 0,
+        "row": 0,
+        "clip-top": 0,
+        "clip-right": 0,
+        "clip-bottom": 0,
+        "clip-left": 0
+      }
+    },
+    {
+      "kind": "action",
+      "id": "square",
+      "batch": "examples",
+      "bounds": [
+        638,
+        126,
+        899,
+        387
+      ],
+      "maxSide": 261,
+      "css": {
+        "sprite-w": 5.061149425287356,
+        "sprite-h": 3.374099616858237,
+        "sprite-x": -2.0322222222222224,
+        "sprite-y": -0.34517241379310337,
+        "col": 1,
+        "row": 0,
+        "clip-top": 0,
+        "clip-right": 0,
+        "clip-bottom": 0,
+        "clip-left": 0
+      }
+    },
+    {
+      "kind": "action",
+      "id": "diamond",
+      "batch": "examples",
+      "bounds": [
+        1100,
+        76,
+        1461,
+        437
+      ],
+      "maxSide": 361,
+      "css": {
+        "sprite-w": 3.659168975069252,
+        "sprite-h": 2.4394459833795015,
+        "sprite-x": -2.5504986149584488,
+        "sprite-y": -0.1110526315789474,
+        "col": 2,
+        "row": 0,
+        "clip-top": 0,
+        "clip-right": 0,
+        "clip-bottom": 0,
+        "clip-left": 0
+      }
+    },
+    {
+      "kind": "action",
+      "id": "triangle",
+      "batch": "examples",
+      "bounds": [
+        111,
+        623,
+        402,
+        914
+      ],
+      "maxSide": 291,
+      "css": {
+        "sprite-w": 4.539381443298969,
+        "sprite-h": 3.026254295532646,
+        "sprite-x": -0.258041237113402,
+        "sprite-y": -1.7711683848797248,
+        "col": 0,
+        "row": 1,
+        "clip-top": 0,
+        "clip-right": 0,
+        "clip-bottom": 0,
+        "clip-left": 0
+      }
+    },
+    {
+      "kind": "action",
+      "id": "cross",
+      "batch": "examples",
+      "bounds": [
+        613,
+        613,
+        924,
+        924
+      ],
+      "maxSide": 311,
+      "css": {
+        "sprite-w": 4.247459807073955,
+        "sprite-h": 2.8316398713826367,
+        "sprite-x": -1.625112540192926,
+        "sprite-y": -1.625112540192926,
+        "col": 1,
+        "row": 1,
+        "clip-top": 0,
+        "clip-right": 0,
+        "clip-bottom": 0,
+        "clip-left": 0
+      }
+    },
+    {
+      "kind": "action",
+      "id": "ring",
+      "batch": "examples",
+      "bounds": [
+        1130,
+        618,
+        1431,
+        919
+      ],
+      "maxSide": 301,
+      "css": {
+        "sprite-w": 4.388571428571428,
+        "sprite-h": 2.9257142857142857,
+        "sprite-x": -3.1585714285714284,
+        "sprite-y": -1.6957142857142857,
+        "col": 2,
+        "row": 1,
+        "clip-top": 0,
+        "clip-right": 0,
+        "clip-bottom": 0,
+        "clip-left": 0
+      }
+    }
+  ]
+}

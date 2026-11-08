@@ -1,0 +1,208 @@
+{
+  "schemaVersion": 1,
+  "scope": "tool-only-local-candidate; no-original-artwork",
+  "seal": "d9d9afd6f958e030734d2929b0195d94cd6e28aab023344ce813511c11cff166",
+  "files": [
+    {
+      "path": ".gitignore",
+      "sourcePath": ".gitignore",
+      "sha256": "d913ede1139f1ebc88b7567152c011f27c7ac10dc3353c4aee385581974bb3e2",
+      "bytes": 38,
+      "executable": false
+    },
+    {
+      "path": "ARTWORK-LICENSE.md",
+      "sourcePath": "ARTWORK-LICENSE.md",
+      "sha256": "6d8f72252677e6bce8f88800c2fc35987c6483c8eec194e41a7d6f1ce918e992",
+      "bytes": 1551,
+      "executable": false
+    },
+    {
+      "path": "DEPENDENCIES.md",
+      "sourcePath": "DEPENDENCIES.md",
+      "sha256": "48213f1e3f77786873a892d321bfc1a2139f0c14f279bd2eecdf9c7f6834822f",
+      "bytes": 324,
+      "executable": false
+    },
+    {
+      "path": "LICENSE",
+      "sourcePath": "LICENSE",
+      "sha256": "9732d1acfeaea7916d0cc993f9522f9a0774e1104d95fc48f59ea893de828f59",
+      "bytes": 1081,
+      "executable": false
+    },
+    {
+      "path": "LICENSE-SCOPE.json",
+      "sourcePath": "LICENSE-SCOPE.json",
+      "sha256": "c7e1ba34791b478cdf94e44e4c14e323295bf3e2f86cfb6f9d15ddf0a146bf0c",
+      "bytes": 1233,
+      "executable": false
+    },
+    {
+      "path": "README.es.md",
+      "sourcePath": "README.es.md",
+      "sha256": "0690f56666782a6bb37572e196d373ea119844b4571e7c231345d2e3ef063bd1",
+      "bytes": 1337,
+      "executable": false
+    },
+    {
+      "path": "README.ja.md",
+      "sourcePath": "README.ja.md",
+      "sha256": "34ad9a1a6f801e37c40c366def960d6c4940ef2f9515a270c4762cf44e5357a3",
+      "bytes": 1549,
+      "executable": false
+    },
+    {
+      "path": "README.ko.md",
+      "sourcePath": "README.ko.md",
+      "sha256": "2407f878120ccaec025c7e455124fe7a44dc6c7895da751ac42a7c4e94ebf725",
+      "bytes": 1491,
+      "executable": false
+    },
+    {
+      "path": "README.md",
+      "sourcePath": "README.md",
+      "sha256": "7e6d0296bdc626665764a3a5e945468cc2913c94c42a50eb488687f210409be0",
+      "bytes": 1472,
+      "executable": false
+    },
+    {
+      "path": "README.zh-Hans.md",
+      "sourcePath": "README.zh-Hans.md",
+      "sha256": "b60c6edccb5b2f37f1dd0590ecf9f8b539a9326c466670bce1ab3f59523c1196",
+      "bytes": 1157,
+      "executable": false
+    },
+    {
+      "path": "README.zh-Hant.md",
+      "sourcePath": "README.zh-Hant.md",
+      "sha256": "539834fb40c4d45600368687980101a64c0fec18abd34dd8701249c5c4846edc",
+      "bytes": 1149,
+      "executable": false
+    },
+    {
+      "path": "demo/app.js",
+      "sourcePath": "demo/app.js",
+      "sha256": "d0d2f6301515a4af7228b4193e4f13a070e6e36bb62c885b0a5bb367e46a66ed",
+      "bytes": 11829,
+      "executable": false
+    },
+    {
+      "path": "demo/calibration.json",
+      "sourcePath": "demo/calibration.json",
+      "sha256": "d16ef6e9d7332766bb1408610d5ed1559f01556b1e0eb593d7062903e5c49fc3",
+      "bytes": 3619,
+      "executable": false
+    },
+    {
+      "path": "demo/demo.css",
+      "sourcePath": "demo/demo.css",
+      "sha256": "1d43c218249daeb32f10cc2e5ee408122abd706c845d6cb230ed9fb276a24217",
+      "bytes": 3161,
+      "executable": false
+    },
+    {
+      "path": "demo/icons.css",
+      "sourcePath": "demo/icons.css",
+      "sha256": "418052d01fe2c0d2330f0af81d4dacd15df53fd5e0d2972b31f0c764b0b86d8d",
+      "bytes": 1823,
+      "executable": false
+    },
+    {
+      "path": "demo/index.html",
+      "sourcePath": "demo/index.html",
+      "sha256": "3c5bccee56674eadc37561347de5e77fe49e24f51d56d27a910bce7f93702192",
+      "bytes": 2147,
+      "executable": false
+    },
+    {
+      "path": "deno.json",
+      "sourcePath": "deno.json",
+      "sha256": "22fc21e7899cbb26387fdedccfdbbc5deed87cd32bfcf879196edfd5ebae51d1",
+      "bytes": 865,
+      "executable": false
+    },
+    {
+      "path": "docs/icon.svg",
+      "sourcePath": "docs/icon.svg",
+      "sha256": "1c07589dc070f9d3c9672ac630eb178c107ceae587b081939b2cf32f85ed70ed",
+      "bytes": 710,
+      "executable": false
+    },
+    {
+      "path": "examples/actions-dark.png",
+      "sourcePath": "examples/actions-dark.png",
+      "sha256": "8e54edf35550b7bd1aaef5772d3863b427eb15dccba2ee7770091e48e201c821",
+      "bytes": 12975,
+      "executable": false
+    },
+    {
+      "path": "examples/actions-light.png",
+      "sourcePath": "examples/actions-light.png",
+      "sha256": "d55882ae2bdc6a5383cbdc04b93a93c2b2357dd38d5705aa7f3baa8720d0cd38",
+      "bytes": 12974,
+      "executable": false
+    },
+    {
+      "path": "examples/provenance.json",
+      "sourcePath": "examples/provenance.json",
+      "sha256": "9ae876ca3f62243edf4b59532c3d9a46dc1923b066a8619e3d5546603631309a",
+      "bytes": 570,
+      "executable": false
+    },
+    {
+      "path": "scripts/generate-examples.py",
+      "sourcePath": "scripts/generate-examples.py",
+      "sha256": "ca5551f41a7d271d11bbf7876901398e063197dcc028be89fd0d7b0e90062497",
+      "bytes": 1929,
+      "executable": false
+    },
+    {
+      "path": "scripts/install-deps.sh",
+      "sourcePath": "scripts/install-deps.sh",
+      "sha256": "ba6e7e94ccd00bf4108a3dea003383fd9ae2d0fa2c891a75ea1b8ebd6baaaa23",
+      "bytes": 755,
+      "executable": true
+    },
+    {
+      "path": "scripts/measure-icons.py",
+      "sourcePath": "scripts/measure-icons.py",
+      "sha256": "9bfbd4820e6d14cdaff4ba93bf517d8a70950151d4804af3105025d68d4283c5",
+      "bytes": 10994,
+      "executable": false
+    },
+    {
+      "path": "scripts/public-check.ts",
+      "sourcePath": "scripts/public-check.ts",
+      "sha256": "1972729bee490622f3413241aa06eefc943be91b57944767c0ad9520b99ec5f7",
+      "bytes": 8964,
+      "executable": false
+    },
+    {
+      "path": "sprite-sources.json",
+      "sourcePath": "sprite-sources.json",
+      "sha256": "c0edf6e7d5824c6e9c04fefcd5b6b61ae802a95027e5e90d56b0cb48c9eedc8b",
+      "bytes": 135,
+      "executable": false
+    },
+    {
+      "path": "tests/png_measure_test.py",
+      "sourcePath": "tests/png_measure_test.py",
+      "sha256": "948e2fd7aef4bc97ed6b5e2c77e3c7d8c6c5b3771dd8b4e7d79daa9adf7b4d4f",
+      "bytes": 11116,
+      "executable": false
+    },
+    {
+      "path": "tool-files.json",
+      "sourcePath": "tool-files.json",
+      "sha256": "4898bdca97b5439c8ece5b4810e6f6f90f99e679e8f71ce5d8644094fb80a0de",
+      "bytes": 935,
+      "executable": false
+    }
+  ],
+  "releaseBlockers": [],
+  "limitations": [
+    "Working files only; Git index/history and remote state require separate review.",
+    "Pattern checks are not a complete secret or rights audit."
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "project": "X-FruityIcon",
+  "packageKind": "tool-only",
+  "status": "publication-authorized-for-codingEzio/FruityIcon",
+  "code": {
+    "license": "MIT",
+    "licenseFile": "LICENSE",
+    "scope": "Project-authored code, prose documentation and geometric examples only; docs/icon.svg has its own CC BY 4.0 grant."
+  },
+  "artwork": {
+    "included": false,
+    "boundary": "All original generated illustrations, reference images, derived image previews, private provenance and their metadata are excluded; no grant to them is made."
+  },
+  "examples": {
+    "license": "MIT",
+    "provenance": "examples/provenance.json",
+    "source": "scripts/generate-examples.py"
+  },
+  "thirdParty": [],
+  "documentationArtwork": {
+    "path": "docs/icon.svg",
+    "sha256": "1c07589dc070f9d3c9672ac630eb178c107ceae587b081939b2cf32f85ed70ed",
+    "creator": "codingEzio",
+    "license": "CC-BY-4.0",
+    "licenseFile": "ARTWORK-LICENSE.md",
+    "decisionDate": "2026-10-28",
+    "scope": "This exact new documentation SVG only; all earlier artwork, fonts, metadata and history remain outside this grant."
+  },
+  "fontBoundary": "No fonts are included. Users provide font files and are responsible for their rights."
+}

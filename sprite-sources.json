@@ -1,0 +1,9 @@
+{
+  "groups": [
+    [
+      "action",
+      ["circle", "square", "diamond", "triangle", "cross", "ring"],
+      "examples"
+    ]
+  ]
+}

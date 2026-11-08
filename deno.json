@@ -1,0 +1,17 @@
+{
+  "fmt": {
+    "exclude": [
+      "demo/fonts",
+      "docs/icon.svg"
+    ]
+  },
+  "tasks": {
+    "setup": "sh scripts/install-deps.sh",
+    "measure": "python3 -B scripts/measure-icons.py && deno fmt demo/icons.css demo/calibration.json",
+    "check": "deno fmt --check demo deno.json README.md README.zh-Hant.md README.zh-Hans.md DEPENDENCIES.md LICENSE-SCOPE.json sprite-sources.json examples/provenance.json tool-files.json && deno lint demo/app.js scripts/public-check.ts && deno check scripts/public-check.ts && python3 -B scripts/measure-icons.py --check",
+    "test": "python3 -B -m unittest discover -s tests -p '*_test.py'",
+    "build": "deno task measure && deno task check",
+    "demo": "python3 -m http.server 18210 --bind 127.0.0.1",
+    "public:tool": "deno run --allow-read --allow-write=Local scripts/public-check.ts --tool-only --export"
+  }
+}

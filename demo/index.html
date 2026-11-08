@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en" data-theme="system">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>FruityIcon · Geometry tools</title>
+    <link rel="stylesheet" href="icons.css">
+    <link rel="stylesheet" href="demo.css">
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>FruityIcon</h1>
+      <p data-text="intro"></p>
+    </header>
+    <main>
+      <section id="controls" class="controls"
+        aria-label="Preferences"><label><span data-text="language"></span><select id="language"><option value="en">English</option><option value="zh-Hant">繁體中文</option><option value="zh-Hans">简体中文</option><option value="ja">日本語</option><option value="ko">한국어</option><option value="es">Español</option></select></label><label><span data-text="theme"></span><select id="theme"><option value="system" data-text="system"></option><option value="light" data-text="light"></option><option value="dark" data-text="dark"></option></select></label><label><span data-text="font"></span><select id="font"><option value="system" data-text="systemFont"></option><option value="pixel" data-text="pixel"></option></select><input id="font-file" type="file" accept=".woff2,.woff,.ttf,.otf" aria-label="Font file"><span id="font-status" role="status"></span></label><label><span data-text="size"></span><input id="size" type="range" min="16" max="96" value="48"><output id="size-value">48 px</output></label></section>
+      <p id="storage" role="status"></p>
+      <section>
+        <h2 data-text="examples"></h2>
+        <div id="samples" class="samples"></div>
+      </section>
+      <section
+        class="inspector"><h2 id="selected"></h2><div class="scales" id="scales"></div><pre id="recipe"></pre><a href="../examples/actions-light.png" id="download" download data-text="download"></a></section>
+      <p data-text="scope"></p>
+    </main>
+    <footer><a href="../README.md" data-text="guide"></a> · <a href="../LICENSE">MIT</a> · <a href="../examples/provenance.json" data-text="provenance"></a></footer>
+  </body>
+</html>

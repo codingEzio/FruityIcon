@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "method": "Deterministic integer-coordinate geometric predicates; source scripts/generate-examples.py.",
+  "referenceImages": [],
+  "license": "MIT",
+  "metadata": "Only PNG IHDR, IDAT and IEND chunks; no original-image bytes or metadata used.",
+  "assets": [
+    {
+      "file": "examples/actions-light.png",
+      "sha256": "d55882ae2bdc6a5383cbdc04b93a93c2b2357dd38d5705aa7f3baa8720d0cd38"
+    },
+    {
+      "file": "examples/actions-dark.png",
+      "sha256": "8e54edf35550b7bd1aaef5772d3863b427eb15dccba2ee7770091e48e201c821"
+    }
+  ]
+}
